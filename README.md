@@ -50,8 +50,8 @@ class CommentPolicyTest < ActiveSupport::TestCase
   end
 
   test 'should only allow private attribute on create' do
-    assert_attribute_permitted @user, @comment, :private, :create
-    assert_not_attribute_permitted @user, @comment, :private, :update
+    assert_attributes_permitted @user, @comment, :private, :create
+    assert_not_attributes_permitted @user, @comment, :private, :update
   end
 
   test 'should scope comments that belong to user' do
