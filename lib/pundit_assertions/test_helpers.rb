@@ -13,7 +13,7 @@ module PunditAssertions
     ##
     # Assert whether a user is permitted to perform an action
     def assert_permitted(user, record, action)
-      msg = "Expected #{user.inspect} to be permitted to #{action} #{record}"
+      msg = "Expected #{inspect_user(user)} to be permitted to #{action} #{record}"
 
       assert permitted?(user, record, action), msg
     end
@@ -21,7 +21,7 @@ module PunditAssertions
     ##
     # Assert whether a user is not permitted to perform an action
     def assert_not_permitted(user, record, action)
-      msg = "Expected #{user.inspect} to not be permitted to #{action} #{record}"
+      msg = "Expected #{inspect_user(user)} to not be permitted to #{action} #{record}"
 
       refute permitted?(user, record, action), msg
     end
@@ -39,7 +39,7 @@ module PunditAssertions
     def assert_has_permitted_attributes(user, record, action = nil)
       permitted = permitted_attributes(user, record, action)
       for_action = action.nil? ? '' : " for #{action}"
-      message = "Expected #{user.inspect} to have permitted attributes#{for_action}\n"
+      message = "Expected #{inspect_user(user)} to have permitted attributes#{for_action}\n"
 
       refute_nil permitted, message
       refute_empty permitted, message
@@ -53,7 +53,7 @@ module PunditAssertions
       permitted = permitted_attributes(user, record, action)
       for_action = action.nil? ? '' : " for #{action}"
       permitted_message = "Attributes #{permitted.inspect} were permitted\n"
-      message = "Expected #{user.inspect} to not have permitted attributes#{for_action}\n#{permitted_message}"
+      message = "Expected #{inspect_user(user)} to not have permitted attributes#{for_action}\n#{permitted_message}"
 
       assert_nil permitted, message
     end
@@ -70,7 +70,7 @@ module PunditAssertions
       for_action = action.nil? ? '' : " for #{action}"
 
       assert_empty attributes - permitted,
-                   "Expected #{user.inspect} to have #{attributes} in permitted attributes#{for_action}"
+                   "Expected #{inspect_user(user)} to have #{attributes} in permitted attributes#{for_action}"
     end
 
     ##
@@ -82,7 +82,7 @@ module PunditAssertions
       union = (attributes & permitted)
       for_action = action.nil? ? '' : " for #{action}"
 
-      assert_empty union, "Expected #{user.inspect} to not have #{union} in permitted attributes#{for_action}"
+      assert_empty union, "Expected #{inspect_user(user)} to not have #{union} in permitted attributes#{for_action}"
     end
 
     alias refute_attributes_permitted assert_not_attributes_permitted
@@ -104,7 +104,7 @@ module PunditAssertions
     def assert_scope_includes(user, *records)
       records.flatten.each do |record|
         assert_includes scope(user, record.class), record,
-                        "Expected #{record} to be included in the scope for #{user.inspect}"
+                        "Expected #{record} to be included in the scope for #{inspect_user(user)}"
       end
     end
 
@@ -113,7 +113,7 @@ module PunditAssertions
     def assert_not_scope_includes(user, *records)
       records.flatten.each do |record|
         refute_includes scope(user, record.class), record,
-                        "Expected #{record} to not be included in the scope for #{user.inspect}"
+                        "Expected #{record} to not be included in the scope for #{inspect_user(user)}"
       end
     end
 
@@ -122,7 +122,7 @@ module PunditAssertions
     ##
     # Assert whether the scope for a user is empty
     def assert_scope_empty(user, klass)
-      assert_empty scope(user, klass), "Expected scope for #{user.inspect} to be empty"
+      assert_empty scope(user, klass), "Expected scope for #{inspect_user(user)} to be empty"
     end
 
     ##
@@ -148,6 +148,14 @@ module PunditAssertions
       klass = self.class.to_s.gsub('Test', '')
       klass << '::Scope' unless klass.match?(/::Scope$/)
       Object.const_get(klass)
+    end
+
+    private
+
+    def inspect_user(user)
+      return 'nil' if user.nil?
+
+      user.class.name
     end
   end
 end
