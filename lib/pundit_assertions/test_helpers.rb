@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
+require_relative 'deprecation'
+
 module PunditAssertions
   ##
   # A set of assertions to use in minitest
   #
   # This module should be included in your test class to use these assertions
   module TestHelpers
+    extend PunditAssertions::Deprecation
+
     ##
     # Assert whether a user is permitted to perform an action
     def assert_permitted(user, record, action)
@@ -32,9 +36,11 @@ module PunditAssertions
 
     ##
     # Assert whether a user will have any attributes permitted
-    def assert_permitted_attributes(user, record, action = nil)
+    def assert_has_permitted_attributes(user, record, action = nil)
       refute_empty permitted_attributes(user, record, action)
     end
+
+    deprecate_method :assert_permitted_attributes, :assert_has_permitted_attributes
 
     ##
     # Assert whether a user will have no attributes permitted

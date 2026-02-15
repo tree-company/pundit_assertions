@@ -45,7 +45,7 @@ class CommentPolicyTest < ActiveSupport::TestCase
   end
 
   test 'should allow permitted attributes for user' do
-    assert_permitted_attributes @user, @comment
+    assert_has_permitted_attributes @user, @comment
     assert_no_permitted_attributes nil, @comment
   end
 
