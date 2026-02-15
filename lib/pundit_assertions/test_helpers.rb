@@ -62,7 +62,7 @@ module PunditAssertions
     alias refute_permitted_attributes assert_no_permitted_attributes
 
     ##
-    # Assert whether a user will have all of the specified attributes permitted
+    # Assert whether a user will have at least the specified attributes permitted
     # You can specify a specific action
     def assert_attributes_permitted(user, record, attributes, action = nil)
       attributes = [attributes] unless attributes.is_a?(Array)
