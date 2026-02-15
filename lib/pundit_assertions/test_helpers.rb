@@ -58,7 +58,6 @@ module PunditAssertions
       assert_nil permitted, message
     end
 
-    alias assert_not_permitted_attributes assert_no_permitted_attributes
     alias refute_permitted_attributes assert_no_permitted_attributes
 
     ##
@@ -119,7 +118,6 @@ module PunditAssertions
     end
 
     alias refute_scope_includes assert_not_scope_includes
-    alias assert_scope_not_includes assert_not_scope_includes
 
     ##
     # Assert whether the scope for a user is empty

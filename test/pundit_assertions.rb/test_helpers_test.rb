@@ -137,15 +137,6 @@ class PunditAssertions::MockPolicyTest < Minitest::Test # rubocop:disable Metric
     assert_includes error.message, 'Attributes [:content, :hidden] were permitted'
   end
 
-  def test_assert_not_permitted_attributes
-    assert_not_permitted_attributes nil, @comment
-    error = assert_raises Minitest::Assertion do
-      assert_not_permitted_attributes @user, @comment
-    end
-    assert_includes error.message,
-                    "Expected #{@user} to not have permitted attributes\nAttributes [:content] were permitted"
-  end
-
   def test_refute_permitted_attributes
     refute_permitted_attributes nil, @comment
     error = assert_raises Minitest::Assertion do
@@ -223,14 +214,6 @@ class PunditAssertions::MockPolicyTest < Minitest::Test # rubocop:disable Metric
     assert_not_scope_includes @user, PunditAssertions::Comment.new(hidden: true)
     error = assert_raises Minitest::Assertion do
       assert_not_scope_includes @user, @comment
-    end
-    assert_includes error.message, "Expected #{@comment} to not be included in the scope for #{@user}"
-  end
-
-  def test_assert_scope_not_includes
-    assert_scope_not_includes @user, PunditAssertions::Comment.new(hidden: true)
-    error = assert_raises Minitest::Assertion do
-      assert_scope_not_includes @user, @comment
     end
     assert_includes error.message, "Expected #{@comment} to not be included in the scope for #{@user}"
   end
