@@ -76,13 +76,13 @@ class PunditAssertions::MockPolicyTest < Minitest::Test
     assert_equal false, permitted?(nil, @comment, :index)
   end
 
-  def test_assert_permitted_attributes
-    assert_permitted_attributes @user, @comment
+  def test_assert_has_permitted_attributes
+    assert_has_permitted_attributes @user, @comment
     assert_no_permitted_attributes nil, @comment
   end
 
-  def test_assert_permitted_attributes_with_action
-    assert_permitted_attributes @user, @comment, :create
+  def test_assert_has_permitted_attributes_with_action
+    assert_has_permitted_attributes @user, @comment, :create
     assert_no_permitted_attributes nil, @comment, :create
   end
 
