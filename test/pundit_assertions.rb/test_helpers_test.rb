@@ -226,6 +226,14 @@ class PunditAssertions::MockPolicyTest < Minitest::Test # rubocop:disable Metric
     assert_includes error.message, "Expected #{@comment} to not be included in the scope for PunditAssertions::User"
   end
 
+  def test_assert_scope_not_includes
+    assert_scope_not_includes @user, PunditAssertions::Comment.new(hidden: true)
+    error = assert_raises Minitest::Assertion do
+      assert_scope_not_includes @user, @comment
+    end
+    assert_includes error.message, "Expected #{@comment} to not be included in the scope for PunditAssertions::User"
+  end
+
   def test_assert_scope_empty
     assert_scope_empty nil, PunditAssertions::Comment
     error = assert_raises Minitest::Assertion do

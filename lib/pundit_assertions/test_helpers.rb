@@ -118,6 +118,7 @@ module PunditAssertions
     end
 
     alias refute_scope_includes assert_not_scope_includes
+    alias assert_scope_not_includes assert_not_scope_includes
 
     ##
     # Assert whether the scope for a user is empty
