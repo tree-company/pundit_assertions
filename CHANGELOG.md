@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.2.1] - 2026-09-15
+* Fixed usage of `ActiveSupport::Deprecation`
+* Fixed a missing alias method `assert_scope_not_includes`
+
 ## [0.2.0] - 2026-09-07
 ### Breaking changes
 * `assert_permitted_attributes` has been renamed to `assert_has_permitted_attributes` for clarity. The old method name is deprecated and will be removed in a next MINOR release.

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pundit_assertions (0.2.0)
+    pundit_assertions (0.2.1)
       minitest
 
 GEM
