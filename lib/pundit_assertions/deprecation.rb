@@ -10,7 +10,7 @@ module PunditAssertions
 
         # If we are in rails, we deprecate using rails' builtins, otherwise we use ruby's Warning
         if defined?(ActiveSupport::Deprecation)
-          ActiveSupport::Deprecation.warn(message)
+          ActiveSupport::Deprecation.new('0.3.0', 'PunditAssertions').warn(message)
         else
           Warning.warn message, category: :deprecated
         end
